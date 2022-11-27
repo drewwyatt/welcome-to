@@ -1,13 +1,17 @@
-import { expect, test } from '@jest/globals'
+import { describe, expect, test } from '@jest/globals'
 import deck from './construction-cards'
 
 const houseNumberTest = (n: number, houseNumbers: number[]) =>
-  test(`There should be ${n} cards with the ${
-    houseNumbers.length > 1 ? 'numbers' : 'number'
-  } ${houseNumbers.join(', ')}`, () => {
-    const cards = houseNumbers.map(hn => deck.filter(c => c.houseNumber === hn))
+  describe(`There should be ${n}...`, () => {
+    const cards = houseNumbers.map(
+      hn => [hn, deck.filter(c => c.houseNumber === hn)] as const,
+    )
 
-    cards.forEach(c => expect(c.length).toEqual(n))
+    cards.map(([hn, c]) =>
+      test(`${hn} cards`, () => {
+        expect(c.length).toEqual(n)
+      }),
+    )
   })
 
 houseNumberTest(3, [1, 2, 14, 15])

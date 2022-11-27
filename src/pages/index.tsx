@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import deck from '~/lib/data/construction-cards'
+import { shuffle } from '~/lib/utils'
 
 export default function Home() {
   return (
@@ -11,6 +13,15 @@ export default function Home() {
 
       <main>
         <h1>Welcome to...</h1>
+        <fieldset>
+          <legend>Before</legend>
+          {JSON.stringify(deck, null, 2)}
+        </fieldset>
+
+        <fieldset>
+          <legend>After</legend>
+          {JSON.stringify(shuffle(deck), null, 2)}
+        </fieldset>
       </main>
     </>
   )

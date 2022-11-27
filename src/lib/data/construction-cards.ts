@@ -14,10 +14,21 @@ const card = (effect: Effect) => (houseNumber: number) => ({
 
 const bis = card(Effect.Bis)
 const landscaper = card(Effect.Landscaper)
-const pool = card(Effect.PoolManufacturer)
-const realEstate = card(Effect.RealEstateAgent)
-const surveyor = card(Effect.Surveyor)
-const temp = card(Effect.TempAgency)
+// const pool = card(Effect.PoolManufacturer)
+const pool = (...houseNumbers: number[]) =>
+  houseNumbers.map(houseNumber => card(Effect.PoolManufacturer)(houseNumber))
+
+// const realEstate = card(Effect.RealEstateAgent)
+const realEstate = (...houseNumbers: number[]) =>
+  houseNumbers.map(houseNumber => card(Effect.RealEstateAgent)(houseNumber))
+
+// const surveyor = card(Effect.Surveyor)
+const surveyor = (...houseNumbers: number[]) =>
+  houseNumbers.map(houseNumber => card(Effect.Surveyor)(houseNumber))
+
+// const temp = card(Effect.TempAgency)
+const temp = (...houseNumbers: number[]) =>
+  houseNumbers.map(houseNumber => card(Effect.TempAgency)(houseNumber))
 
 const deck: ConstructionCard[] = [
   bis(12),
@@ -47,23 +58,10 @@ const deck: ConstructionCard[] = [
   landscaper(6),
   landscaper(4),
   landscaper(11),
-  pool(4),
-  pool(9),
-  realEstate(10),
-  realEstate(11),
-  realEstate(15),
-  realEstate(2),
-  realEstate(4),
-  realEstate(6),
-  realEstate(8),
-  surveyor(10),
-  surveyor(14),
-  surveyor(6),
-  surveyor(7),
-  surveyor(8),
-  surveyor(9),
-  temp(10),
-  temp(6),
+  ...pool(4, 9, 3, 6, 8, 10, 13, 7, 12),
+  ...realEstate(10, 11, 15, 2, 4, 6, 8, 5, 9, 7, 14, 5, 12, 1, 7, 9, 11, 8),
+  ...surveyor(10, 14, 6, 7, 8, 9, 1, 2, 3, 5, 5, 6, 10, 11, 11, 13, 15, 8),
+  ...temp(10, 6, 4, 8, 9, 12, 13, 7, 3),
 ]
 
 export default deck

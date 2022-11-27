@@ -29,6 +29,22 @@ const deck: ConstructionCard[] = [
   realEstate(6),
   surveyor(9),
   pool(4),
+  bis(8),
+  realEstate(11),
+  realEstate(4),
+  realEstate(15),
+  realEstate(2),
+  landscaper(15),
+  bis(12),
+  landscaper(8),
+  landscaper(14),
+  temp(6),
+  surveyor(8),
+  temp(10),
+  bis(9),
+  landscaper(11),
+  realEstate(10),
+  realEstate(8),
 ]
 
 export default deck

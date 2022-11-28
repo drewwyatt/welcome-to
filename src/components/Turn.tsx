@@ -1,7 +1,7 @@
 import type { FC } from 'react'
 import { Effect, HouseNumber } from '~/lib/models'
 import { useTurn } from '~/lib/state/stacks/hooks'
-import EffectCard from './cards/EffectCard'
+import { EffectCard, HouseNumberCard } from './cards'
 
 const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
   effect,
@@ -9,7 +9,7 @@ const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
 }) => (
   <>
     <EffectCard type={effect} />
-    <article>{houseNumber}</article>
+    <HouseNumberCard value={houseNumber} />
   </>
 )
 

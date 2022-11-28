@@ -62,3 +62,7 @@ a {
   margin: 0 auto;
   padding: 0 10px;
 }
+
+.house-number-card h1 {
+  font-size: 80px;
+}

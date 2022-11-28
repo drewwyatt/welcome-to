@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
+
+import game from './game/slice'
 import stacks from './construction-cards/slice'
 
 export const store = configureStore({
   reducer: {
+    game,
     stacks,
   },
 })

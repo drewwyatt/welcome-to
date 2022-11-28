@@ -19,18 +19,6 @@ type Actions = {
 
 type Turn = [[Column, Column, Column], Actions]
 
-const selectedStarted = (state: RootState) => state.stacks.initialized
-export const useGame = (): { started: boolean; start: () => void } => {
-  const started = useSelector<RootState, boolean>(selectedStarted)
-  const dispatch = useDispatch()
-  const start = useCallback(() => dispatch(slice.initialize()), [dispatch])
-
-  return {
-    started,
-    start,
-  }
-}
-
 const selectCardsForTurn = createSelector(
   (state: RootState) => state.stacks,
   ({ index, stacks }) =>

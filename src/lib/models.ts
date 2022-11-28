@@ -14,8 +14,12 @@ export interface ConstructionCard {
   houseNumber: HouseNumber
 }
 
+export enum PlanClassification {
+  N1,
+  N2,
+  N3,
+}
+
 export interface CityPlan {
   objective: string
-  image: string // ?
-  advanced: boolean
 }

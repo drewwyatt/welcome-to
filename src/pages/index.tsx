@@ -1,8 +1,11 @@
 import Head from 'next/head'
+import { useMemo } from 'react'
 import deck from '~/lib/data/construction-cards'
 import { shuffle } from '~/lib/utils'
 
 export default function Home() {
+  const shuffled = useMemo(() => shuffle(deck), [])
+
   return (
     <>
       <Head>
@@ -20,7 +23,7 @@ export default function Home() {
 
         <fieldset>
           <legend>After</legend>
-          {JSON.stringify(shuffle(deck), null, 2)}
+          {JSON.stringify(shuffled, null, 2)}
         </fieldset>
       </main>
     </>

@@ -14,3 +14,12 @@ export const shuffle = <T>(array: T[]): T[] => {
 
   return array
 }
+
+export const split3 = <T>(array: T[]) =>
+  array.reduce<[T[], T[], T[]]>(
+    (acc, card, index) => {
+      acc[index % 3].push(card)
+      return acc
+    },
+    [[], [], []],
+  )

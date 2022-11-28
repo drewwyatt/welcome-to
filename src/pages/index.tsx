@@ -1,7 +1,7 @@
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { useMemo } from 'react'
 import constructionCards from '~/lib/data/construction-cards'
+import { useTurn } from '~/lib/state/stacks/hooks'
 import { shuffle } from '~/lib/utils'
 
 type Props = {
@@ -17,6 +17,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 }
 
 export default function Home({ deck }: Props) {
+  const [sets, { next, prev }] = useTurn()
+
   return (
     <>
       <Head>
@@ -27,40 +29,24 @@ export default function Home({ deck }: Props) {
 
       <main>
         <h1>Welcome to...</h1>
-        <fieldset>
-          <legend>Events</legend>
-          <article>
-            <strong>{deck[0].effect}</strong>
-          </article>
-          <article>
-            <strong>{deck[1].effect}</strong>
-          </article>
-          <article>
-            <strong>{deck[2].effect}</strong>
-          </article>
-        </fieldset>
-        <fieldset>
-          <legend>House Numbers</legend>
-          <article>
-            <strong>{deck[3].houseNumber}</strong>
-          </article>
-          <article>
-            <strong>{deck[4].houseNumber}</strong>
-          </article>
-          <article>
-            <strong>{deck[5].houseNumber}</strong>
-          </article>
-        </fieldset>
-
-        {/* <fieldset>
-          <legend>Before</legend>
-          {JSON.stringify(constructionCards, null, 2)}
-        </fieldset>
-
-        <fieldset>
-          <legend>After</legend>
-          {JSON.stringify(deck, null, 2)}
-        </fieldset> */}
+        <div>
+          {sets.map((cards, index) => (
+            <article key={index}>
+              <fieldset>
+                <legend>Effect</legend>
+                {cards.effect}
+              </fieldset>
+              <fieldset>
+                <legend>HouseNumber</legend>
+                {cards.houseNumber}
+              </fieldset>
+            </article>
+          ))}
+        </div>
+        <div>
+          <button onClick={prev}>Prev</button>
+          <button onClick={next}>Next</button>
+        </div>
       </main>
     </>
   )

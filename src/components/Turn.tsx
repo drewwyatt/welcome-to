@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import { Effect, HouseNumber } from '~/lib/models'
-import { useTurn } from '~/lib/state/stacks/hooks'
+import { useTurn } from '~/lib/state/hooks'
 import { EffectCard, HouseNumberCard } from './cards'
 
 const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({

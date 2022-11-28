@@ -6,20 +6,20 @@ import { shuffle, split3 } from '~/lib/utils'
 type Stack = typeof cards
 const deal = () => split3(shuffle(cards))
 
-export interface StackSlice {
+export interface ConstructionCardsSlice {
   index: number
   initialized: boolean
   stacks: [Stack, Stack, Stack]
 }
 
-const initialState: StackSlice = {
+const initialState: ConstructionCardsSlice = {
   index: -1,
   initialized: false,
   stacks: [[], [], []],
 }
 
 const stacksSlice = createSlice({
-  name: 'stacks',
+  name: 'construction-cards',
   initialState,
   reducers: {
     initialize: state => {

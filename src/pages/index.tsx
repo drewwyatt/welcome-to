@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Turn from '~/components/Turn'
-import { useGame } from '~/lib/state/stacks/hooks'
+import { useGame } from '~/lib/state/hooks'
 
 export default function Home() {
   const game = useGame()

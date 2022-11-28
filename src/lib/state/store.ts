@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import stacks from './stacks/slice'
+import stacks from './construction-cards/slice'
 
 export const store = configureStore({
   reducer: {

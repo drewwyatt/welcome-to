@@ -1,19 +1,20 @@
-import { ConstructionCard, Effect } from '~/lib/models'
+import { ConstructionCard, Effect, HouseNumber } from '~/lib/models'
 
-const card = (effect: Effect) => (houseNumber: number) => ({
+const card = (effect: Effect) => (houseNumber: HouseNumber) => ({
   effect,
   houseNumber,
 })
 
-const bis = (...houseNumbers: number[]) => houseNumbers.map(card(Effect.Bis))
-const landscaper = (...houseNumbers: number[]) =>
+const bis = (...houseNumbers: HouseNumber[]) => houseNumbers.map(card(Effect.Bis))
+const landscaper = (...houseNumbers: HouseNumber[]) =>
   houseNumbers.map(card(Effect.Landscaper))
-const pool = (...houseNumbers: number[]) =>
+const pool = (...houseNumbers: HouseNumber[]) =>
   houseNumbers.map(card(Effect.PoolManufacturer))
-const realEstate = (...houseNumbers: number[]) =>
+const realEstate = (...houseNumbers: HouseNumber[]) =>
   houseNumbers.map(card(Effect.RealEstateAgent))
-const surveyor = (...houseNumbers: number[]) => houseNumbers.map(card(Effect.Surveyor))
-const temp = (...houseNumbers: number[]) => houseNumbers.map(card(Effect.TempAgency))
+const surveyor = (...houseNumbers: HouseNumber[]) =>
+  houseNumbers.map(card(Effect.Surveyor))
+const temp = (...houseNumbers: HouseNumber[]) => houseNumbers.map(card(Effect.TempAgency))
 
 const deck: ConstructionCard[] = [
   ...bis(3, 4, 6, 7, 8, 9, 10, 12, 13),

@@ -1,30 +1,33 @@
 import type { FC } from 'react'
+import { Effect, HouseNumber } from '~/lib/models'
 import { useTurn } from '~/lib/state/stacks/hooks'
+import EffectCard from './cards/EffectCard'
+
+const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
+  effect,
+  houseNumber,
+}) => (
+  <>
+    <EffectCard type={effect} />
+    <article>{houseNumber}</article>
+  </>
+)
 
 const Turn: FC = () => {
-  const [sets, { next, prev }] = useTurn()
+  const [pairs, { next, prev }] = useTurn()
 
   return (
-    <>
-      <div>
-        {sets.map((cards, index) => (
-          <article key={index}>
-            <fieldset>
-              <legend>Effect</legend>
-              {cards.effect}
-            </fieldset>
-            <fieldset>
-              <legend>HouseNumber</legend>
-              {cards.houseNumber}
-            </fieldset>
-          </article>
+    <div className="turn">
+      <div className="table">
+        {pairs.map((cards, idx) => (
+          <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
         ))}
       </div>
       <div>
         <button onClick={prev}>Prev</button>
         <button onClick={next}>Next</button>
       </div>
-    </>
+    </div>
   )
 }
 

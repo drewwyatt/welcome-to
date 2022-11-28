@@ -20,7 +20,7 @@ type Actions = {
 type Turn = [[Column, Column, Column], Actions]
 
 const selectCardsForTurn = createSelector(
-  (state: RootState) => state.stacks,
+  (state: RootState) => state.constructionCards,
   ({ index, stacks }) =>
     stacks.map((stack, i) => {
       const effect = stack[index + 1].effect

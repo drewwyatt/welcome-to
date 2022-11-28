@@ -13,13 +13,10 @@ export interface ConstructionCard {
   effect: Effect
   houseNumber: HouseNumber
 }
-
-export enum PlanClassification {
-  N1,
-  N2,
-  N3,
-}
-
 export interface CityPlan {
   objective: string
+  firstPoints: number
+  otherPoints: number
+  claimed: boolean
+  advanced: boolean
 }

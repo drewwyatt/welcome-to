@@ -27,6 +27,12 @@ a {
 
 /* TODO: Move these */
 
+.turn {
+  width: 100%;
+  max-width: 1000px;
+  margin: 80px auto;
+}
+
 .table {
   display: grid;
   grid-auto-flow: column;
@@ -34,7 +40,6 @@ a {
   grid-template-rows: repeat(2, 1fr);
 
   width: 100%;
-  max-width: 1000px;
 }
 
 .card {

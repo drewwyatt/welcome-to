@@ -16,6 +16,6 @@ export const emojify = (effect: Effect) => {
     case Effect.Surveyor:
       return <Fence />
     case Effect.TempAgency:
-      return <Emoji>⚠️</Emoji>
+      return <Emoji>🚧</Emoji>
   }
 }

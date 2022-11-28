@@ -8,21 +8,31 @@ const deal = () => split3(shuffle(cards))
 
 export interface StackSlice {
   index: number
+  initialized: boolean
   stacks: [Stack, Stack, Stack]
 }
 
 const initialState: StackSlice = {
-  index: 0,
-  stacks: deal(),
+  index: -1,
+  initialized: false,
+  stacks: [[], [], []],
 }
 
 const stacksSlice = createSlice({
   name: 'stacks',
   initialState,
   reducers: {
+    initialize: state => {
+      state.stacks = deal()
+      state.index = 0
+      state.initialized = true
+    },
     next: state => {
+      if (!state.initialized) {
+        return
+      }
       state.index += 1
-      if (state.index === state.stacks.length - 1) {
+      if (state.index === state.stacks[0].length - 1) {
         const next = deal()
         state.stacks.forEach((stack, index) => {
           state.stacks[index] = stack.concat(next[index])
@@ -30,13 +40,13 @@ const stacksSlice = createSlice({
       }
     },
     prev: state => {
-      if (state.index > 0) {
-        state.index += 1
+      if (state.initialized && state.index > 0) {
+        state.index -= 1
       }
     },
   },
 })
 
-export const { next, prev } = stacksSlice.actions
+export const { initialize, next, prev } = stacksSlice.actions
 
 export default stacksSlice.reducer

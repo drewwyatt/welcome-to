@@ -1,24 +1,9 @@
-import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import constructionCards from '~/lib/data/construction-cards'
-import { useTurn } from '~/lib/state/stacks/hooks'
-import { shuffle } from '~/lib/utils'
+import Turn from '~/components/Turn'
+import { useGame } from '~/lib/state/stacks/hooks'
 
-type Props = {
-  deck: typeof constructionCards
-}
-
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  return {
-    props: {
-      deck: shuffle(constructionCards),
-    },
-  }
-}
-
-export default function Home({ deck }: Props) {
-  const [sets, { next, prev }] = useTurn()
-
+export default function Home() {
+  const game = useGame()
   return (
     <>
       <Head>
@@ -27,27 +12,7 @@ export default function Home({ deck }: Props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Welcome to...</h1>
-        <div>
-          {sets.map((cards, index) => (
-            <article key={index}>
-              <fieldset>
-                <legend>Effect</legend>
-                {cards.effect}
-              </fieldset>
-              <fieldset>
-                <legend>HouseNumber</legend>
-                {cards.houseNumber}
-              </fieldset>
-            </article>
-          ))}
-        </div>
-        <div>
-          <button onClick={prev}>Prev</button>
-          <button onClick={next}>Next</button>
-        </div>
-      </main>
+      <main>{game.started ? <Turn /> : <button onClick={game.start}>Start</button>}</main>
     </>
   )
 }

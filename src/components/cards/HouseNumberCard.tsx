@@ -1,10 +1,11 @@
 import type { FC } from 'react'
 import type { HouseNumber } from '~/lib/models'
+import Card from './Card'
 
 const HouseNumberCard: FC<{ value: HouseNumber }> = ({ value }) => (
-  <article className="card house-number-card">
+  <Card className="house-number-card">
     <h1>{value}</h1>
-  </article>
+  </Card>
 )
 
 export default HouseNumberCard

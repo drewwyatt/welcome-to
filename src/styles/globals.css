@@ -27,10 +27,22 @@ a {
 
 /* TODO: Move these */
 
+:root {
+  --card-gap: 20px;
+}
+
 .turn {
   width: 100%;
   max-width: 1000px;
   margin: 80px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.turn hr {
+  margin: 40px auto;
+  border-top: 1px dashed white;
+  width: 50%;
 }
 
 .table {
@@ -38,8 +50,7 @@ a {
   grid-auto-flow: column;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
-  gap: 20px;
-  margin-bottom: 40px;
+  gap: var(--card-gap);
 
   width: 100%;
 }
@@ -72,4 +83,15 @@ a {
 
 .house-number-card h1 {
   font-size: 80px;
+}
+
+.city-plans {
+  display: flex;
+  flex-direction: row;
+  gap: var(--card-gap);
+}
+
+.city-plans .card {
+  display: flex;
+  flex: 1;
 }

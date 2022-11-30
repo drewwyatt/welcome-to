@@ -13,6 +13,11 @@ const selectPlan = createSelector(
   (plans, category) => plans[category - 1],
 )
 
+export const useDrawCityPlans = () => {
+  const dispatch = useDispatch()
+  return useCallback(() => dispatch(slice.draw()), [dispatch])
+}
+
 export const useCityPlan = (category: 1 | 2 | 3) => {
   const plan = useSelector((state: RootState) => selectPlan(state, category))
   const dispatch = useDispatch()

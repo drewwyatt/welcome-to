@@ -1,6 +1,6 @@
 import type { FC } from 'react'
 import { Effect, HouseNumber } from '~/lib/models'
-import { useTurn } from '~/lib/state/hooks'
+import { useDrawCityPlans, useTurn } from '~/lib/state/hooks'
 import { EffectCard, HouseNumberCard, HousingEstatePlan } from './cards'
 
 import styles from '~/styles/Turn.module.css'
@@ -17,6 +17,7 @@ const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
 
 const Turn: FC = () => {
   const [pairs, { next, prev }] = useTurn()
+  const redrawPlans = useDrawCityPlans()
 
   return (
     <div className={styles.wrapper}>
@@ -38,6 +39,11 @@ const Turn: FC = () => {
         <HousingEstatePlan category={1} />
         <HousingEstatePlan category={2} />
         <HousingEstatePlan category={3} />
+      </div>
+      <div className={styles.buttons}>
+        <button className={styles.button} onClick={redrawPlans}>
+          Draw New City Plans
+        </button>
       </div>
     </div>
   )

@@ -10,16 +10,14 @@ interface Props {
 }
 
 const Estate: FC<{ size: number }> = ({ size }) => (
-  <div className="estate">
-    <div className="icons">
-      {range(size).map(key => (
-        <Emoji key={key} className="estate">
-          🏠
-        </Emoji>
-      ))}
-    </div>
-    <span>{size}</span>
-  </div>
+  <fieldset className={`estate estate-${size}`}>
+    <legend>{size}</legend>
+    {range(size).map(key => (
+      <Emoji key={key} className="estate-icon">
+        🏠
+      </Emoji>
+    ))}
+  </fieldset>
 )
 
 const HousingEstatePlan: FC<Props> = ({ category }) => {
@@ -27,7 +25,7 @@ const HousingEstatePlan: FC<Props> = ({ category }) => {
 
   return (
     <Card className="city-plan">
-      <h2>n*{category}</h2>
+      <h2 className="plan-category">n*{category}</h2>
       <div className="estates">
         {plan.estates.map((size, idx) => (
           <Estate key={idx} size={size} />

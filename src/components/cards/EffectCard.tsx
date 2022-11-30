@@ -2,7 +2,7 @@ import type { FC } from 'react'
 import type { Effect } from '~/lib/models'
 
 import Card from './Card'
-import { emojify } from './effects'
+import { emojify } from './images'
 
 const EffectCard: FC<{ type: Effect }> = ({ type }) => (
   <Card>

@@ -1,7 +1,12 @@
 import type { FC, PropsWithChildren } from 'react'
+import { classNames } from '~/lib/utils'
 
-const Emoji: FC<PropsWithChildren> = ({ children }) => (
-  <i className="effect-emoji">{children}</i>
+interface Props {
+  className?: string
+}
+
+const Emoji: FC<PropsWithChildren<Props>> = ({ children, className }) => (
+  <i className={classNames('emoji', className)}>{children}</i>
 )
 
 export default Emoji

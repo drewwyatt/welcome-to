@@ -45,11 +45,6 @@ a {
   padding: 30px 15px;
 }
 
-.emoji {
-  font-style: normal;
-  font-size: 160px;
-}
-
 .fence {
   fill: gray;
   flex: 1;

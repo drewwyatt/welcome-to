@@ -2,6 +2,8 @@ import Head from 'next/head'
 import Turn from '~/components/Turn'
 import { useGame } from '~/lib/state/hooks'
 
+import styles from '~/styles/Home.module.css'
+
 export default function Home() {
   const game = useGame()
   return (
@@ -16,11 +18,20 @@ export default function Home() {
         {game.started ? (
           <Turn />
         ) : (
-          <button id="start-button" onClick={game.start}>
+          <button className={styles.startButton} onClick={game.start}>
             Start
           </button>
         )}
       </main>
+      <footer className={styles.footer}>
+        <a
+          href="https://github.com/drewwyatt/welcome-to"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          GitHub
+        </a>
+      </footer>
     </>
   )
 }

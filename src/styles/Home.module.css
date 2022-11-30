@@ -1,0 +1,29 @@
+.startButton {
+  background: greenyellow;
+  color: black;
+  appearance: none;
+  border-radius: 10px;
+  font-size: 3em;
+  padding: 10px 20px;
+  align-self: center;
+  justify-self: center;
+  margin: 0 auto;
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  align-self: flex-end;
+  justify-self: flex-end;
+}
+
+.footer a {
+  font-size: 1.5rem;
+  text-decoration: underline;
+  color: pink;
+}
+
+.footer a:hover {
+  color: greenyellow;
+}

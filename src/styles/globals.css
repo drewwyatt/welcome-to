@@ -15,6 +15,21 @@ a {
   box-sizing: border-box;
 }
 
+html,
+body {
+  min-height: 100vh;
+}
+#__next {
+  display: flex;
+  flex-flow: column;
+  min-height: 100vh;
+}
+
+main {
+  display: flex;
+  flex: 1;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
@@ -28,19 +43,6 @@ a {
 :root {
   --card-gap: 20px;
   --background: black;
-}
-
-#start-button {
-  background: greenyellow;
-  color: black;
-  appearance: none;
-  border-radius: 10px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3em;
-  padding: 10px 20px;
 }
 
 button {

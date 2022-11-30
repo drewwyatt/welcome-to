@@ -13,10 +13,13 @@ export interface ConstructionCard {
   effect: Effect
   houseNumber: HouseNumber
 }
-export interface CityPlan {
-  objective: string
+
+export interface HousingEstatePlan {
+  estates: number[]
+
   firstPoints: number
   otherPoints: number
   claimed: boolean
-  advanced: boolean
 }
+
+export type CityPlan = HousingEstatePlan

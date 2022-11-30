@@ -1,6 +1,9 @@
 import { createSelector } from '@reduxjs/toolkit'
-import { useSelector } from 'react-redux'
+import { useCallback, useMemo } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
 import type { RootState } from '../store'
+import * as slice from './slice'
 
 const selectPlan = createSelector(
   [
@@ -10,5 +13,13 @@ const selectPlan = createSelector(
   (plans, category) => plans[category - 1],
 )
 
-export const useCityPlan = (category: 1 | 2 | 3) =>
-  useSelector((state: RootState) => selectPlan(state, category))
+export const useCityPlan = (category: 1 | 2 | 3) => {
+  const plan = useSelector((state: RootState) => selectPlan(state, category))
+  const dispatch = useDispatch()
+  const toggleClaim = useCallback(
+    () => dispatch(slice.toggleClaim(category)),
+    [dispatch, category],
+  )
+
+  return useMemo(() => [plan, toggleClaim] as const, [plan, toggleClaim])
+}

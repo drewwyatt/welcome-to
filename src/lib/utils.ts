@@ -24,7 +24,7 @@ export const split3 = <T>(array: T[]) =>
     [[], [], []],
   )
 
-export const classNames = (...classNames: (string | null | undefined)[]) =>
+export const classNames = (...classNames: (string | null | undefined | false)[]) =>
   classNames.filter(Boolean).join(' ')
 
 export const range = (size: number) => new Array(size).fill(null).map((_, index) => index)

@@ -17,8 +17,9 @@ const cityPlansSlice = createSlice({
   name: 'city-plans',
   initialState,
   reducers: {
-    claim: (state, action: PayloadAction<0 | 1 | 2>) => {
-      state.selected[action.payload].claimed = true
+    toggleClaim: (state, action: PayloadAction<1 | 2 | 3>) => {
+      state.selected[action.payload - 1].claimed =
+        !state.selected[action.payload - 1].claimed
     },
   },
   extraReducers: r =>
@@ -27,6 +28,6 @@ const cityPlansSlice = createSlice({
     }),
 })
 
-export const { claim } = cityPlansSlice.actions
+export const { toggleClaim } = cityPlansSlice.actions
 
 export default cityPlansSlice.reducer

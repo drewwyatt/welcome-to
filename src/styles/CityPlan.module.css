@@ -1,6 +1,16 @@
 .cityPlan {
   display: flex;
   flex: 1;
+  appearance: none;
+  background: none;
+  border: none;
+}
+
+.cityPlan article {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex: 1;
 }
 
 .header {
@@ -26,6 +36,7 @@
   flex-direction: row;
 
   font-size: 3em;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: -20px;
   padding: 10px;
@@ -38,6 +49,11 @@
   width: 70px;
   height: 70px;
   line-height: 70px;
+}
+
+.firstPoints.claimed {
+  background: gray;
+  text-decoration: line-through;
 }
 
 /* House Icons */

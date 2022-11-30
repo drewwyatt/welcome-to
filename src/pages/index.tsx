@@ -12,7 +12,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>{game.started ? <Turn /> : <button onClick={game.start}>Start</button>}</main>
+      <main>
+        {game.started ? (
+          <Turn />
+        ) : (
+          <button id="start-button" onClick={game.start}>
+            Start
+          </button>
+        )}
+      </main>
     </>
   )
 }

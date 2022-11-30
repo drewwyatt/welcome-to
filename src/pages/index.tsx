@@ -30,6 +30,10 @@ export default function Home() {
           rel="noreferrer noopener"
         >
           GitHub
+        </a>{' '}
+        &middot;{' '}
+        <a href="/instructions.pdf" target="_blank" rel="noreferrer noopener">
+          Instructions
         </a>
       </footer>
     </>

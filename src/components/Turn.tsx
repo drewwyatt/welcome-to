@@ -25,16 +25,19 @@ const Turn: FC = () => {
           <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
         ))}
       </div>
+      <div className={styles.buttons}>
+        <button className={styles.button} onClick={prev}>
+          Prev
+        </button>
+        <button className={styles.button} onClick={next}>
+          Next
+        </button>
+      </div>
       <hr className={styles.divider} />
       <div className={styles.cityPlans}>
         <HousingEstatePlan category={1} />
         <HousingEstatePlan category={2} />
         <HousingEstatePlan category={3} />
-      </div>
-      <hr className={styles.divider} />
-      <div>
-        <button onClick={prev}>Prev</button>
-        <button onClick={next}>Next</button>
       </div>
     </div>
   )

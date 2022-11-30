@@ -27,3 +27,19 @@
   flex-direction: row;
   gap: var(--card-gap);
 }
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 40px;
+}
+
+.button {
+  background: lightblue;
+  color: black;
+  appearance: none;
+  padding: 10px 30px;
+  font-size: 2em;
+  border-radius: 10px;
+}

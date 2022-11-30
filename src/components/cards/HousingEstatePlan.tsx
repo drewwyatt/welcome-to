@@ -30,7 +30,9 @@ const HousingEstatePlan: FC<Props> = ({ category }) => {
 
   return (
     <Card className={styles.cityPlan}>
-      <h2>n*{category}</h2>
+      <header className={styles.header}>
+        <h2 className={styles.categoryNumber}>n*{category}</h2>
+      </header>
       <div className={styles.estates}>
         {plan.estates.map((size, idx) => (
           <Estate key={idx} size={size} />

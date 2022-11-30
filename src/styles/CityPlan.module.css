@@ -3,6 +3,23 @@
   flex: 1;
 }
 
+.header {
+  flex: 1;
+  justify-self: flex-start;
+  width: 100%;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.categoryNumber {
+  width: 100%;
+  text-align: right;
+  padding: 0 10px;
+  margin: 0;
+}
+
+/* House Icons */
+
 .estates {
   display: grid;
   gap: 20px;

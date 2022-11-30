@@ -1,8 +1,10 @@
 import type { FC, HTMLAttributes } from 'react'
 
+import styles from '~/styles/Fence.module.css'
+
 const Fence: FC<HTMLAttributes<SVGElement>> = props => (
   <svg
-    className="fence"
+    className={styles.icon}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 490.505 490.505"
     {...props}

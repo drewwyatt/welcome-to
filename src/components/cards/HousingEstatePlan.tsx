@@ -5,15 +5,20 @@ import { range } from '~/lib/utils'
 import Card from './Card'
 import Emoji from './images/Emoji'
 
+import styles from '~/styles/CityPlan.module.css'
+
 interface Props {
   category: 1 | 2 | 3
 }
 
+const toEstateClassName = (size: number) =>
+  [styles.estate, styles[`estate${size}`]].join(' ')
+
 const Estate: FC<{ size: number }> = ({ size }) => (
-  <fieldset className={`estate estate-${size}`}>
+  <fieldset className={toEstateClassName(size)}>
     <legend>{size}</legend>
     {range(size).map(key => (
-      <Emoji key={key} className="estate-icon">
+      <Emoji key={key} className={styles.estateIcon}>
         🏠
       </Emoji>
     ))}
@@ -24,16 +29,16 @@ const HousingEstatePlan: FC<Props> = ({ category }) => {
   const plan = useCityPlan(category)
 
   return (
-    <Card className="city-plan">
-      <h2 className="plan-category">n*{category}</h2>
-      <div className="estates">
+    <Card className={styles.cityPlan}>
+      <h2>n*{category}</h2>
+      <div className={styles.estates}>
         {plan.estates.map((size, idx) => (
           <Estate key={idx} size={size} />
         ))}
       </div>
       <footer>
-        <span className="first-player-points">{plan.firstPoints}</span>
-        <span className="other-points">{plan.otherPoints}</span>
+        <span>{plan.firstPoints}</span>
+        <span>{plan.otherPoints}</span>
       </footer>
     </Card>
   )

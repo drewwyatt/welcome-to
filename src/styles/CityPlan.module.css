@@ -1,0 +1,51 @@
+.cityPlan {
+  display: flex;
+  flex: 1;
+}
+
+.estates {
+  display: grid;
+  gap: 20px;
+
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(6, max-content);
+  margin-bottom: 20px;
+}
+
+.estate {
+  border-color: white;
+  position: relative;
+  padding: 20px 10px;
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.estate legend {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  padding: 5px;
+  background: var(--background);
+}
+
+.estateIcon {
+  font-size: 1em;
+}
+
+.estate1,
+.estate2 {
+  grid-column: span 2;
+}
+
+.estate3,
+.estate4,
+.estate5,
+.estate6 {
+  grid-column: span 6;
+}

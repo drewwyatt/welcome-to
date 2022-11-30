@@ -1,8 +1,11 @@
 import Head from 'next/head'
+import type { FC } from 'react'
 import Turn from '~/components/Turn'
 import { useGame } from '~/lib/state/hooks'
 
 import styles from '~/styles/Home.module.css'
+
+const Spacer: FC = () => <> &middot; </>
 
 export default function Home() {
   const game = useGame()
@@ -30,10 +33,26 @@ export default function Home() {
           rel="noreferrer noopener"
         >
           GitHub
-        </a>{' '}
-        &middot;{' '}
+        </a>
+        <Spacer />
         <a href="/instructions.pdf" target="_blank" rel="noreferrer noopener">
           Instructions
+        </a>
+        <Spacer />
+        <a
+          href="https://apps.apple.com/us/app/welcome-to-your-perfect-home/id1358077007"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          iPhone Scoresheet
+        </a>
+        <Spacer />
+        <a
+          href="https://play.google.com/store/apps/details?id=com.bluecocker.welcome&hl=en_US&gl=US"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          Android Scoresheet
         </a>
       </footer>
     </>

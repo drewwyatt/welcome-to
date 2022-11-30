@@ -3,6 +3,8 @@ import { Effect, HouseNumber } from '~/lib/models'
 import { useTurn } from '~/lib/state/hooks'
 import { EffectCard, HouseNumberCard, HousingEstatePlan } from './cards'
 
+import styles from '~/styles/Turn.module.css'
+
 const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
   effect,
   houseNumber,
@@ -17,19 +19,19 @@ const Turn: FC = () => {
   const [pairs, { next, prev }] = useTurn()
 
   return (
-    <div className="turn">
-      <div className="table">
+    <div className={styles.wrapper}>
+      <div className={styles.constructionCards}>
         {pairs.map((cards, idx) => (
           <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
         ))}
       </div>
-      <hr />
-      <div className="city-plans">
+      <hr className={styles.divider} />
+      <div className={styles.cityPlans}>
         <HousingEstatePlan category={1} />
         <HousingEstatePlan category={2} />
         <HousingEstatePlan category={3} />
       </div>
-      <hr />
+      <hr className={styles.divider} />
       <div>
         <button onClick={prev}>Prev</button>
         <button onClick={next}>Next</button>

@@ -1,0 +1,29 @@
+.wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 80px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.divider {
+  margin: 40px auto;
+  border-top: 1px dashed white;
+  width: 50%;
+}
+
+.constructionCards {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: var(--card-gap);
+
+  width: 100%;
+}
+
+.cityPlans {
+  display: flex;
+  flex-direction: row;
+  gap: var(--card-gap);
+}

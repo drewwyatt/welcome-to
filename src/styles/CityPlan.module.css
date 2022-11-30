@@ -18,6 +18,28 @@
   margin: 0;
 }
 
+.footer {
+  width: 100%;
+  flex: 1;
+  justify-self: flex-end;
+  display: flex;
+  flex-direction: row;
+
+  font-size: 3em;
+  justify-content: space-between;
+  margin-bottom: -20px;
+  padding: 10px;
+}
+
+.firstPoints {
+  background: white;
+  color: black;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  line-height: 70px;
+}
+
 /* House Icons */
 
 .estates {

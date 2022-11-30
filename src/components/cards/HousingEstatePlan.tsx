@@ -38,8 +38,8 @@ const HousingEstatePlan: FC<Props> = ({ category }) => {
           <Estate key={idx} size={size} />
         ))}
       </div>
-      <footer>
-        <span>{plan.firstPoints}</span>
+      <footer className={styles.footer}>
+        <span className={styles.firstPoints}>{plan.firstPoints}</span>
         <span>{plan.otherPoints}</span>
       </footer>
     </Card>

@@ -1,0 +1,33 @@
+.image {
+  background: black;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.Bis {
+  background-color: #dd5168;
+}
+
+.Landscaper {
+  background-color: #63c689;
+}
+
+.PoolManufacturer {
+  background-color: #5bd0e5;
+}
+
+.RealEstateAgent {
+  background-color: #8864b1;
+}
+
+.Surveyor {
+  background-color: gray;
+}
+
+.TempAgency {
+  background-color: #fb916f;
+}

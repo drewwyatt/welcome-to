@@ -21,30 +21,32 @@ const Turn: FC = () => {
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.constructionCards}>
-        {pairs.map((cards, idx) => (
-          <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
-        ))}
-      </div>
-      <div className={styles.buttons}>
-        <button className={styles.button} onClick={prev}>
-          Prev
-        </button>
-        <button className={styles.button} onClick={next}>
-          Next
-        </button>
-      </div>
-      <hr className={styles.divider} />
-      <div className={styles.cityPlans}>
-        <HousingEstatePlan category={1} />
-        <HousingEstatePlan category={2} />
-        <HousingEstatePlan category={3} />
-      </div>
-      <div className={styles.buttons}>
+      <section className={styles.left}>
+        <div className={styles.constructionCards}>
+          {pairs.map((cards, idx) => (
+            <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
+          ))}
+        </div>
+        <div className={styles.buttons}>
+          <button className={styles.button} onClick={prev}>
+            Prev
+          </button>
+          <button className={styles.button} onClick={next}>
+            Next
+          </button>
+        </div>
+      </section>
+      {/* <hr className={styles.divider} /> */}
+      <section className={styles.right}>
+        <div className={styles.cityPlans}>
+          <HousingEstatePlan category={1} />
+          <HousingEstatePlan category={2} />
+          <HousingEstatePlan category={3} />
+        </div>
         <button className={styles.button} onClick={redrawPlans}>
           Draw New City Plans
         </button>
-      </div>
+      </section>
     </div>
   )
 }

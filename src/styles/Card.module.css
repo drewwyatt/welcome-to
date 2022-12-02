@@ -9,4 +9,5 @@
   text-align: center;
   flex-direction: column;
   padding: 30px 15px;
+  max-height: 320px;
 }

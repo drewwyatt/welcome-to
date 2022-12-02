@@ -1,9 +1,26 @@
 .wrapper {
   width: 100%;
-  max-width: 1000px;
+  max-width: 1920px;
   margin: 80px auto;
   display: flex;
+  flex-direction: row;
+  padding: 40px;
+  justify-content: space-around;
+  gap: 40px;
+}
+
+.left,
+.right {
+  display: flex;
+  flex: 1;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+.cityPlans {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--card-gap);
 }
 
 .divider {
@@ -18,15 +35,14 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
   gap: var(--card-gap);
-
   width: 100%;
 }
 
-.cityPlans {
+/* .rightColumn {
   display: flex;
-  flex-direction: row;
+  flex-flow: column;
   gap: var(--card-gap);
-}
+} */
 
 .buttons {
   display: flex;

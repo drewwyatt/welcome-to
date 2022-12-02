@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 html,
 body {
   padding: 0;
@@ -43,6 +45,7 @@ main {
 :root {
   --card-gap: 20px;
   --background: black;
+  --pacifico: 'Pacifico', cursive;
 }
 
 button {

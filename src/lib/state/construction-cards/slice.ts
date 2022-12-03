@@ -31,7 +31,9 @@ const stacksSlice = createSlice({
       }
     },
     prev: state => {
-      state.index -= 1
+      if (state.index > 0) {
+        state.index -= 1
+      }
     },
   },
   extraReducers: builder =>

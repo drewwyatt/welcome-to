@@ -1,4 +1,9 @@
-import { createListenerMiddleware, createSlice, createAction } from '@reduxjs/toolkit'
+import {
+  createListenerMiddleware,
+  createSlice,
+  createAction,
+  PayloadAction,
+} from '@reduxjs/toolkit'
 
 export enum TimerState {
   Stopped = 'stopped',
@@ -32,9 +37,11 @@ const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
-    start: state => {
-      state.state = TimerState.Running
+    start: (state, action: PayloadAction<number>) => {
       state.lastTick = Date.now()
+      state.remaining = action.payload
+      state.seconds = action.payload
+      state.state = TimerState.Running
     },
     stop: state => {
       state.state = TimerState.Stopped
@@ -58,7 +65,10 @@ const timerSlice = createSlice({
       }
     },
     reset: state => {
-      state.remaining = 0
+      state = {
+        ...initialState,
+        seconds: state.seconds,
+      }
     },
   },
 })

@@ -1,15 +1,14 @@
 import type { FC } from 'react'
-import Selection from './Selection'
+import Config from './Config'
 import { useTimer } from '~/lib/state/hooks'
 
 const Timer: FC = () => {
-  const [remaining, { start, stop }] = useTimer()
+  const [remaining, { stop }] = useTimer()
   return (
     <fieldset>
       <legend>Timer</legend>
-      <Selection />
+      <Config />
       {remaining}
-      <button onClick={start}>start</button>
       <button onClick={stop}>stop</button>
     </fieldset>
   )

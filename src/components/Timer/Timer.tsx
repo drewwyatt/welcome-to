@@ -3,12 +3,14 @@ import Config from './Config'
 import { useTimerControls, useTimeRemaining, useTimerState } from '~/lib/state/hooks'
 import { TimerState } from '~/lib/state/timer/slice'
 
+import styles from '~/styles/Timer.module.css'
+
 const Countdown: FC = () => {
   const remaining = useTimeRemaining()
   return (
-    <fieldset>
+    <fieldset className={styles.countdown}>
       <legend>Seconds Until Next Flip</legend>
-      {remaining}
+      <h3>{remaining}</h3>
     </fieldset>
   )
 }
@@ -16,19 +18,25 @@ const Countdown: FC = () => {
 const Controls: FC = () => {
   const { toggle, reset, stop } = useTimerControls()
   return (
-    <div>
-      <button onClick={toggle}>⏯️</button>
-      <button onClick={reset}>🔃</button>
-      <button onClick={stop}>⏹️</button>
-    </div>
+    <ul className={styles.controls}>
+      <li>
+        <button onClick={toggle}>⏯️ Start/Pause</button>
+      </li>
+      <li>
+        <button onClick={reset}>🔃 Reset</button>
+      </li>
+      <li>
+        <button onClick={stop}>⏹️ Stop</button>
+      </li>
+    </ul>
   )
 }
 
 const Timer: FC = () => {
   const state = useTimerState()
   return (
-    <details>
-      <summary>Timer</summary>
+    <details className={styles.wrapper}>
+      <summary className={styles.summary}>Flip Timer</summary>
       {state === TimerState.Stopped ? (
         <Config />
       ) : (

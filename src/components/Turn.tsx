@@ -4,6 +4,7 @@ import { useDrawCityPlans, useTurn } from '~/lib/state/hooks'
 import { EffectCard, HouseNumberCard, HousingEstatePlan } from './cards'
 import Keyboard from './Keyboard'
 import Timer from './Timer'
+import PlaySound from './PlaySound'
 
 import styles from '~/styles/Turn.module.css'
 
@@ -52,6 +53,7 @@ const Turn: FC = () => {
           </div>
           <div className={styles.instructions}>
             <h2>Resources</h2>
+            <PlaySound />
             <p>
               App store links and the full game manual can be found at the bottom of the
               page.

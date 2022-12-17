@@ -44,3 +44,12 @@ export const useTurn = (): Turn => {
 
   return [cards, { next, prev }]
 }
+
+const selectSoundEnabled = (state: RootState) => state.constructionCards.playSound
+export const useSoundControl = (): [enabled: boolean, toggle: () => void] => {
+  const enabled = useSelector(selectSoundEnabled)
+  const dispatch = useDispatch()
+  const toggle = useCallback(() => dispatch(slice.toggleFlipSound()), [dispatch])
+
+  return [enabled, toggle]
+}

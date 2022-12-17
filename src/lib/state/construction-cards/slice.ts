@@ -17,7 +17,7 @@ export interface ConstructionCardsSlice {
 const initialState: ConstructionCardsSlice = {
   index: -1,
   stacks: [[], [], []],
-  playSound: true,
+  playSound: false,
 }
 
 const drawNext = (state: ConstructionCardsSlice) => {
@@ -40,6 +40,9 @@ const stacksSlice = createSlice({
         state.index -= 1
       }
     },
+    toggleFlipSound: state => {
+      state.playSound = !state.playSound
+    },
   },
   extraReducers: builder => {
     builder.addCase(initialize, state => {
@@ -50,7 +53,7 @@ const stacksSlice = createSlice({
   },
 })
 
-export const { next, prev } = stacksSlice.actions
+export const { next, prev, toggleFlipSound } = stacksSlice.actions
 
 export const flipListener = createListenerMiddleware()
 

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 import cityPlans from './city-plans/slice'
-import constructionCards from './construction-cards/slice'
+import constructionCards, { flipListener } from './construction-cards/slice'
 import game from './game/slice'
 import timer, { timerListener } from './timer/slice'
 
@@ -13,7 +13,9 @@ export const store = configureStore({
     timer,
   },
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().prepend(timerListener.middleware),
+    getDefaultMiddleware()
+      .prepend(timerListener.middleware)
+      .prepend(flipListener.middleware),
 })
 
 export type RootState = ReturnType<typeof store.getState>

@@ -9,13 +9,12 @@ const selectTimeRemaining = (state: RootState) =>
 
 export const useTimer = (): [
   number,
-  { state: slice.TimerState; start(): void; stop(): void; pause(): void },
+  { state: slice.TimerState; start(): void; stop(): void },
 ] => {
   const [remaining, state] = useSelector(selectTimeRemaining)
   const dispatch = useDispatch()
-  const start = useCallback(() => dispatch(slice.start(dispatch)), [dispatch])
+  const start = useCallback(() => dispatch(slice.start() as any), [dispatch])
   const stop = useCallback(() => dispatch(slice.stop()), [dispatch])
-  const pause = useCallback(() => dispatch(slice.pause()), [dispatch])
 
-  return [remaining, { state, start, stop, pause }]
+  return [remaining, { state, start, stop }]
 }

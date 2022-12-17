@@ -3,7 +3,7 @@ import Selection from './Selection'
 import { useTimer } from '~/lib/state/hooks'
 
 const Timer: FC = () => {
-  const [remaining, { start, stop, pause }] = useTimer()
+  const [remaining, { start, stop }] = useTimer()
   return (
     <fieldset>
       <legend>Timer</legend>
@@ -11,7 +11,6 @@ const Timer: FC = () => {
       {remaining}
       <button onClick={start}>start</button>
       <button onClick={stop}>stop</button>
-      <button onClick={pause}>pause</button>
     </fieldset>
   )
 }

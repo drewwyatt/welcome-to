@@ -1,15 +1,8 @@
-import {
-  AnyAction,
-  createAsyncThunk,
-  createSlice,
-  PayloadAction,
-  ThunkDispatch,
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 export enum TimerState {
   Stopped = 'stopped',
   Running = 'running',
-  Paused = 'paused',
 }
 
 export interface TimerSlice {
@@ -26,11 +19,25 @@ const initialState: TimerSlice = {
   lastTick: -1,
 }
 
+const INTERVAL = 1000
+
+const hasTimerState = (state: unknown): state is { timer: TimerSlice } =>
+  !!state && typeof state === 'object' && 'timer' in state
+const isTimerRunning = (getState: () => unknown): boolean => {
+  const state = getState()
+  return hasTimerState(state) && state.timer.state === TimerState.Running
+}
+
 const tick = createAsyncThunk(
   'timer/tick',
-  async (_, { dispatch }) =>
-    new Promise<ThunkDispatch<unknown, unknown, AnyAction>>(resolved => {
-      setTimeout(() => resolved(dispatch), 1000)
+  (_, { dispatch, getState }) =>
+    new Promise<void>(resolved => {
+      setTimeout(() => {
+        resolved()
+        if (isTimerRunning(getState)) {
+          dispatch(tick())
+        }
+      }, INTERVAL)
     }),
 )
 
@@ -38,35 +45,34 @@ const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
-    start: (state, action: PayloadAction<ThunkDispatch<unknown, unknown, any>>) => {
-      if (state.state === TimerState.Stopped) {
-        state.remaining = state.seconds
-      }
+    run: state => {
       state.state = TimerState.Running
-      action.payload(tick())
-    },
-    pause: state => {
-      state.state = TimerState.Paused
     },
     stop: state => {
       state.state = TimerState.Stopped
     },
+    toggle: state => {
+      state.state === TimerState.Running ? TimerState.Stopped : TimerState.Running
+    },
   },
   extraReducers: builder => {
-    builder.addCase(tick.fulfilled, (state, action) => {
-      if (state.remaining <= 0) {
-        state.remaining = state.seconds
-      } else {
-        state.remaining--
-      }
-
+    builder.addCase(tick.fulfilled, state => {
       if (state.state === TimerState.Running) {
-        action.payload(tick())
+        if (state.remaining <= 0) {
+          state.remaining = state.seconds
+        } else {
+          state.remaining--
+        }
       }
     })
   },
 })
 
-export const { start, stop, pause } = timerSlice.actions
+export const start = createAsyncThunk('timer/start', async (_, { dispatch }) => {
+  dispatch(timerSlice.actions.run())
+  dispatch(tick())
+})
+
+export const { stop, toggle } = timerSlice.actions
 
 export default timerSlice.reducer

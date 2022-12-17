@@ -8,6 +8,7 @@ import {
 export enum TimerState {
   Stopped = 'stopped',
   Running = 'running',
+  Paused = 'paused',
 }
 
 export interface TimerSlice {
@@ -28,8 +29,11 @@ const initialState: TimerSlice = {
 
 const hasTimerState = (state: unknown): state is { timer: TimerSlice } =>
   !!state && typeof state === 'object' && 'timer' in state
-const timerIs = (expected: TimerState, state: unknown): boolean =>
-  hasTimerState(state) && state.timer.state === expected
+const timerIs = (expected: TimerState | TimerState[], state: unknown): boolean =>
+  hasTimerState(state) &&
+  (Array.isArray(expected)
+    ? expected.includes(state.timer.state)
+    : state.timer.state === expected)
 const isTimerComplete = (state: unknown): boolean =>
   hasTimerState(state) && state.timer.remaining === 0
 
@@ -47,7 +51,13 @@ const timerSlice = createSlice({
       state.state = TimerState.Stopped
     },
     toggle: state => {
-      state.state === TimerState.Running ? TimerState.Stopped : TimerState.Running
+      if (state.state === TimerState.Running) {
+        state.state = TimerState.Paused
+        state.delta = 0
+      } else {
+        state.state = TimerState.Running
+        state.lastTick = Date.now()
+      }
     },
     tick: state => {
       if (state.state === TimerState.Running) {
@@ -65,8 +75,10 @@ const timerSlice = createSlice({
       }
     },
     reset: state => {
-      state = {
+      return {
         ...initialState,
+        state: TimerState.Paused,
+        remaining: state.seconds,
         seconds: state.seconds,
       }
     },
@@ -77,7 +89,8 @@ export const complete = createAction('timer/complete')
 export const timerListener = createListenerMiddleware()
 timerListener.startListening({
   predicate: (_, state, prevState) =>
-    timerIs(TimerState.Running, state) && timerIs(TimerState.Stopped, prevState),
+    timerIs(TimerState.Running, state) &&
+    timerIs([TimerState.Stopped, TimerState.Paused], prevState),
   effect: async (_, { dispatch }) => {
     dispatch(timerSlice.actions.tick())
   },

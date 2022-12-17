@@ -1,16 +1,43 @@
 import type { FC } from 'react'
 import Config from './Config'
-import { useTimer } from '~/lib/state/hooks'
+import { useTimerControls, useTimeRemaining, useTimerState } from '~/lib/state/hooks'
+import { TimerState } from '~/lib/state/timer/slice'
 
-const Timer: FC = () => {
-  const [remaining, { stop }] = useTimer()
+const Countdown: FC = () => {
+  const remaining = useTimeRemaining()
   return (
     <fieldset>
-      <legend>Timer</legend>
-      <Config />
+      <legend>Seconds Until Next Flip</legend>
       {remaining}
-      <button onClick={stop}>stop</button>
     </fieldset>
+  )
+}
+
+const Controls: FC = () => {
+  const { toggle, reset, stop } = useTimerControls()
+  return (
+    <div>
+      <button onClick={toggle}>⏯️</button>
+      <button onClick={reset}>🔃</button>
+      <button onClick={stop}>⏹️</button>
+    </div>
+  )
+}
+
+const Timer: FC = () => {
+  const state = useTimerState()
+  return (
+    <details>
+      <summary>Timer</summary>
+      {state === TimerState.Stopped ? (
+        <Config />
+      ) : (
+        <>
+          <Countdown />
+          <Controls />
+        </>
+      )}
+    </details>
   )
 }
 

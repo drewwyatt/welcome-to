@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { createListenerMiddleware, createSlice, createAction } from '@reduxjs/toolkit'
 
 export enum TimerState {
   Stopped = 'stopped',
@@ -19,33 +19,18 @@ const initialState: TimerSlice = {
   lastTick: -1,
 }
 
-const INTERVAL = 1000
-
 const hasTimerState = (state: unknown): state is { timer: TimerSlice } =>
   !!state && typeof state === 'object' && 'timer' in state
-const isTimerRunning = (getState: () => unknown): boolean => {
-  const state = getState()
-  return hasTimerState(state) && state.timer.state === TimerState.Running
-}
-
-const tick = createAsyncThunk(
-  'timer/tick',
-  (_, { dispatch, getState }) =>
-    new Promise<void>(resolved => {
-      setTimeout(() => {
-        resolved()
-        if (isTimerRunning(getState)) {
-          dispatch(tick())
-        }
-      }, INTERVAL)
-    }),
-)
+const timerIs = (expected: TimerState, state: unknown): boolean =>
+  hasTimerState(state) && state.timer.state === expected
+const isTimerComplete = (state: unknown): boolean =>
+  hasTimerState(state) && state.timer.remaining === 0
 
 const timerSlice = createSlice({
   name: 'timer',
   initialState,
   reducers: {
-    run: state => {
+    start: state => {
       state.state = TimerState.Running
     },
     stop: state => {
@@ -54,9 +39,7 @@ const timerSlice = createSlice({
     toggle: state => {
       state.state === TimerState.Running ? TimerState.Stopped : TimerState.Running
     },
-  },
-  extraReducers: builder => {
-    builder.addCase(tick.fulfilled, state => {
+    tick: state => {
       if (state.state === TimerState.Running) {
         if (state.remaining <= 0) {
           state.remaining = state.seconds
@@ -64,15 +47,35 @@ const timerSlice = createSlice({
           state.remaining--
         }
       }
-    })
+    },
+    reset: state => {
+      state.remaining = 0
+    },
   },
 })
 
-export const start = createAsyncThunk('timer/start', async (_, { dispatch }) => {
-  dispatch(timerSlice.actions.run())
-  dispatch(tick())
+export const complete = createAction('timer/complete')
+export const timerListener = createListenerMiddleware()
+timerListener.startListening({
+  predicate: (_, state, prevState) =>
+    timerIs(TimerState.Running, state) && timerIs(TimerState.Stopped, prevState),
+  effect: async (_, { dispatch }) => {
+    dispatch(timerSlice.actions.tick())
+  },
+})
+timerListener.startListening({
+  actionCreator: timerSlice.actions.tick,
+  effect: async (_, { delay, dispatch, getState }) => {
+    await delay(1000)
+    if (timerIs(TimerState.Running, getState())) {
+      dispatch(timerSlice.actions.tick())
+
+      if (isTimerComplete(getState())) {
+        dispatch(complete())
+      }
+    }
+  },
 })
 
-export const { stop, toggle } = timerSlice.actions
-
+export const { start, stop, toggle, reset } = timerSlice.actions
 export default timerSlice.reducer

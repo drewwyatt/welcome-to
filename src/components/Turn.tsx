@@ -3,6 +3,7 @@ import { Effect, HouseNumber } from '~/lib/models'
 import { useDrawCityPlans, useTurn } from '~/lib/state/hooks'
 import { EffectCard, HouseNumberCard, HousingEstatePlan } from './cards'
 import Keyboard from './Keyboard'
+import Timer from './Timer'
 
 import styles from '~/styles/Turn.module.css'
 
@@ -33,6 +34,7 @@ const Turn: FC = () => {
               <Pair key={idx} effect={cards.effect} houseNumber={cards.houseNumber} />
             ))}
           </div>
+          <Timer />
           <div className={styles.buttons}>
             <button className={styles.button} onClick={prev}>
               Prev

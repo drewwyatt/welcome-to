@@ -10,6 +10,7 @@ export interface TimerSlice {
   state: TimerState
   remaining: number
   lastTick: number
+  delta: number
 }
 
 const initialState: TimerSlice = {
@@ -17,6 +18,7 @@ const initialState: TimerSlice = {
   state: TimerState.Stopped,
   remaining: 0,
   lastTick: -1,
+  delta: 0,
 }
 
 const hasTimerState = (state: unknown): state is { timer: TimerSlice } =>
@@ -32,6 +34,7 @@ const timerSlice = createSlice({
   reducers: {
     start: state => {
       state.state = TimerState.Running
+      state.lastTick = Date.now()
     },
     stop: state => {
       state.state = TimerState.Stopped
@@ -41,11 +44,17 @@ const timerSlice = createSlice({
     },
     tick: state => {
       if (state.state === TimerState.Running) {
+        state.delta += Math.abs(state.lastTick - Date.now())
+        state.lastTick = Date.now()
+
         if (state.remaining <= 0) {
           state.remaining = state.seconds
         } else {
-          state.remaining--
+          state.remaining -= Math.floor(state.delta / 1000)
+          state.remaining = Math.max(state.remaining, 0)
         }
+
+        state.delta = state.delta % 1000
       }
     },
     reset: state => {

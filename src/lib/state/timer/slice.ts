@@ -4,6 +4,7 @@ import {
   createAction,
   PayloadAction,
 } from '@reduxjs/toolkit'
+import { cardsDidAdvance } from '../construction-cards/guards'
 
 export enum TimerState {
   Stopped = 'stopped',
@@ -29,7 +30,10 @@ const initialState: TimerSlice = {
 
 const hasTimerState = (state: unknown): state is { timer: TimerSlice } =>
   !!state && typeof state === 'object' && 'timer' in state
-const timerIs = (expected: TimerState | TimerState[], state: unknown): boolean =>
+const timerIs = (
+  expected: TimerState | TimerState[],
+  state: unknown,
+): state is { timer: TimerSlice } =>
   hasTimerState(state) &&
   (Array.isArray(expected)
     ? expected.includes(state.timer.state)
@@ -74,14 +78,11 @@ const timerSlice = createSlice({
         state.delta = state.delta % 1000
       }
     },
-    reset: state => {
-      return {
-        ...initialState,
-        state: TimerState.Paused,
-        remaining: state.seconds,
-        seconds: state.seconds,
-      }
-    },
+    reset: state => ({
+      ...state,
+      remaining: state.seconds,
+      lastTick: Date.now(),
+    }),
   },
 })
 
@@ -105,6 +106,15 @@ timerListener.startListening({
       if (isTimerComplete(getState())) {
         dispatch(complete())
       }
+    }
+  },
+})
+timerListener.startListening({
+  predicate: cardsDidAdvance,
+  effect: (_, { dispatch, getState }) => {
+    const state = getState()
+    if (timerIs(TimerState.Running, state)) {
+      dispatch(timerSlice.actions.reset())
     }
   },
 })

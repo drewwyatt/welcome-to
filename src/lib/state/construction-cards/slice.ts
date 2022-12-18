@@ -1,9 +1,10 @@
 import { createListenerMiddleware, createSlice } from '@reduxjs/toolkit'
-
 import cards from '~/lib/data/construction-cards'
 import { shuffle, split3 } from '~/lib/utils'
+
 import { initialize } from '../game/slice'
 import { complete } from '../timer/slice'
+import { hasCardState } from './guards'
 
 type Stack = typeof cards
 const deal = () => split3(shuffle(cards))
@@ -57,17 +58,18 @@ export const { next, prev, toggleFlipSound } = stacksSlice.actions
 
 export const flipListener = createListenerMiddleware()
 
-const hasCardState = (
+export const cardsDidAdvance = (
+  _: unknown,
   state: unknown,
+  prevState: unknown,
 ): state is { constructionCards: ConstructionCardsSlice } =>
-  !!state && typeof state === 'object' && 'constructionCards' in state
-
-const shouldPlaySound = (_: unknown, state: unknown, prevState: unknown) =>
   hasCardState(state) &&
   hasCardState(prevState) &&
-  state.constructionCards.playSound &&
   state.constructionCards.index > 0 &&
   state.constructionCards.index > prevState.constructionCards.index
+
+const shouldPlaySound = (_: unknown, state: unknown, prevState: unknown) =>
+  cardsDidAdvance(_, state, prevState) && state.constructionCards.playSound
 
 flipListener.startListening({
   predicate: shouldPlaySound,

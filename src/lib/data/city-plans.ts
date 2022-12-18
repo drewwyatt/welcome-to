@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import { CityPlan, HousingEstatePlan } from '~/lib/models'
 
 const estatePlan = (
@@ -9,6 +10,7 @@ const estatePlan = (
   firstPoints,
   otherPoints,
   estates,
+  id: uuid(),
 })
 
 export const n1: CityPlan[] = [

@@ -20,6 +20,7 @@ export interface HousingEstatePlan {
   firstPoints: number
   otherPoints: number
   claimed: boolean
+  id: string
 }
 
 export type CityPlan = HousingEstatePlan

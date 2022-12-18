@@ -13,18 +13,23 @@ const initialState: CityPlansState = {
   selected: [],
 }
 
+type Category = 1 | 2 | 3
+
 const toSelected = () => [shuffle(n1)[0], shuffle(n2)[0], shuffle(n3)[0]]
 
 const cityPlansSlice = createSlice({
   name: 'city-plans',
   initialState,
   reducers: {
-    toggleClaim: (state, action: PayloadAction<1 | 2 | 3>) => {
+    toggleClaim: (state, action: PayloadAction<Category>) => {
       state.selected[action.payload - 1].claimed =
         !state.selected[action.payload - 1].claimed
     },
     draw: state => {
       state.selected = toSelected()
+    },
+    setPlan: (state, action: PayloadAction<{ category: Category; plan: CityPlan }>) => {
+      state.selected[action.payload.category - 1] = action.payload.plan
     },
   },
   extraReducers: r =>
@@ -33,6 +38,6 @@ const cityPlansSlice = createSlice({
     }),
 })
 
-export const { draw, toggleClaim } = cityPlansSlice.actions
+export const { draw, setPlan, toggleClaim } = cityPlansSlice.actions
 
 export default cityPlansSlice.reducer

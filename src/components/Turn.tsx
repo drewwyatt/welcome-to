@@ -7,6 +7,7 @@ import Timer from './Timer'
 import PlaySound from './PlaySound'
 
 import styles from '~/styles/Turn.module.css'
+import SelectCityPlans from './SelectCityPlan'
 
 const Pair: FC<{ effect: Effect; houseNumber: HouseNumber }> = ({
   effect,
@@ -46,6 +47,7 @@ const Turn: FC = () => {
           </div>
         </section>
         <section className={styles.right}>
+          <SelectCityPlans />
           <div className={styles.cityPlans}>
             <HousingEstatePlan category={1} />
             <HousingEstatePlan category={2} />
